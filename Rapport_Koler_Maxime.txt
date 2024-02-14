@@ -85,5 +85,26 @@ J'ai donc décidé d'exécuter les commandes séparément
 Transparent 2:
 Pour la réalisation de ce transparent j'ai ouvert le fichier .git/hooks/pre-commit.sample
 Ensuite, après avoir ouvert le fichier, j'ai suivit les instruction mises et l'ai renommé
-pre-commit
+pre-commit et ajouté les lignes suivantes dans mon code :
+
+# Utilise PHP CS Fixer pour corriger automatiquement les erreurs
+php-cs-fixer fix
+
+# Ajoute les modifications corrigées au staging area
+git add .
+
+# Utilise PHP Mess Detector pour vérifier s'il y a des erreurs
+phpmd path/to/your/code text
+
+# Vérifie s'il y a des erreurs après correction
+if [ $? -ne 0 ]; then
+    echo "Des erreurs ont été détectées. Commit annulé."
+    exit 1
+fi
+
+# Si tout est bon, le commit peut se poursuivre
+exit 0
+
 Continuant, chmod +x .git/hooks/pre-commit a été executé pour rendre le fichier executable.
+Puis j'ai ajouter cette ligne pour supprimer les whitespaces dans mon rapport
+sed -i 's/[[:space:]]*$//' Rapport_Koler_Maxime.txt
