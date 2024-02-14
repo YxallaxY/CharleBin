@@ -177,7 +177,7 @@ class Configuration
                     'use_path_style_endpoint' => null,
                     'bucket'                  => null,
                     'prefix'                  => '',
-                );
+                )
             }
 
             // "*_options" sections don't require all defaults to be set

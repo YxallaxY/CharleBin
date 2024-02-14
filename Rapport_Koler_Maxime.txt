@@ -115,6 +115,3 @@ et l'espace n'était plus là.
 Transparent 3:
 Pour installer action lint sur github j'ai simplement clické sur le lien donnée, puis copier le code de Php codeSniffer.
 Ayant copié le code je suis aller dans la partie Action > workflows de github avant de créer un nouveau workflow et coller le code précédement copié.
-Après avoir essayer de faire une requête git push, 
-j'ai eu cette erreur : error: failed to push some refs to 'github.com:YxallaxY/CharleBin.git'
-confirmant le blockage de la branche main
