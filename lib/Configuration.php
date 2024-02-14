@@ -12,7 +12,7 @@
 
 namespace PrivateBin;
 
-use Exception;
+ use Exception;
 use PDO;
 
 /**
