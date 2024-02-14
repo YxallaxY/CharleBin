@@ -4,25 +4,25 @@ Koler Maxime
 
 Scéance 1 :
 Transparent 1:
-Lors de l'installation de make, j'ai rencontré des problèmes avec PHP indiquant son absence.
-La source du problème résidait dans le chemin d'accès inexistant.
-Après résolution, l'installation de make a rencontré une autre difficulté, qui a été résolue en ajoutant "extension=php_openssl.dll" dans le fichier php.ini.
+Lors de l'installation de make, j'ai rencontré des problèmes avec PHP indiquant son absence. 
+La source du problème résidait dans le chemin d'accès inexistant. 
+Après résolution, l'installation de make a rencontré une autre difficulté, qui a été résolue en ajoutant "extension=php_openssl.dll" dans le fichier php.ini. 
 Ensuite, les commandes make install et make start ont été exécutées avec succès.
 
 Transparent 2: La nouvelle branche à été crée avec succès avec git branche Max.
-Après les manipulation demandé;
+Après les manipulation demandé; 
 git add -p et avoir sélectionné juste la modification de langue puis commit et ai refait la même chose avec la nouvelle option d'expirtion.
 lors du git checkout main, git me remarque que la branche créer est en avance de 2 commits par rapport à la branche actuelle.
 
 Scéance 2
 Transparent 3:
-Après le git merge Max (en étant dans la branche main).
+Après le git merge Max (en étant dans la branche main). 
 Conformément à la question : oui, elle est toujours là. Elle reste là et permet de consulter ce que l’on a fait dedans. Même si le merge à été fait sans explication apparente. Puisqu'en utilisant git reflog aucun merge n'apparait alors qu'elle sont mergé dans gitk
-
+ 
 
 Transparent 4: git branche change-default-expiration. Création de la nouvelle branche.
 Après avoir changer les données et fait un git switch -C main pour retourner à main les branche on été fusionnées automatiquement. M'empêchant de faire la suite des manipulations.(J'ai du supprimer quelques commit pour refaire les manipulations...).
-Après avoir refait les manipulations, et le commit j'ai reçut ceci comme message:
+Après avoir refait les manipulations, et le commit j'ai reçut ceci comme message: 
 CONFLICT (content): Merge conflict in lib/Configuration.php
 Automatic merge failed; fix conflicts and then commit the result
 puis j'ai mofifier le document à la main et ai continuer et fini avec git merge --continue
@@ -44,13 +44,13 @@ En poursuivant avec "git bisect start", "bad", "good 47e14b1794d701c349e12517732
 2-Git:
 
 Scéance 4
-Transparent 1:
-La création d'un répertoire Git complètement vide a été nécessaire pour éviter les problèmes avec "git pull", qui refusait de fusionner.
+Transparent 1: 
+La création d'un répertoire Git complètement vide a été nécessaire pour éviter les problèmes avec "git pull", qui refusait de fusionner. 
 Une fois le répertoire créé, "git push" a permis de transférer tout le contenu de PrivateBin vers Chalebin.
 
 Scéance 5
-Transparent 2:
-Après avoir modifié le nom sur le site Git et consulté le document local, il a été constaté que les changements effectués en remote n'avaient pas été synchronisés localement.
+Transparent 2: 
+Après avoir modifié le nom sur le site Git et consulté le document local, il a été constaté que les changements effectués en remote n'avaient pas été synchronisés localement. 
 L'utilisation de la commande "git pull" a été nécessaire pour récupérer les changements effectués en remote.
 
 Transparent 3:
@@ -64,7 +64,7 @@ git push -u origin Suppression_Footer
 
 Ouverture de pull request dans git
 
-Transparent 4:
+Transparent 4: 
  Création des documents readme.md et CONTRIBUTING.md
 
 
@@ -82,29 +82,36 @@ Par la suite, essayant d'ajouter la commande du premier lint, j'ai remarqué que
 commande n'était pas éxectuée à cause d'une erreur lors du lancement de la première.
 J'ai donc décidé d'exécuter les commandes séparément
 
+Scéance 7
 Transparent 2:
-Pour la réalisation de ce transparent j'ai ouvert le fichier .git/hooks/pre-commit.sample
-Ensuite, après avoir ouvert le fichier, j'ai suivit les instruction mises et l'ai renommé
-pre-commit et ajouté les lignes suivantes dans mon code :
+Pour la réalisation de ce transparent j'ai ouvert le fichier .git/hooks/pre-commit.sample 
+Ensuite, après avoir ouvert le fichier, j'ai suivit les instruction mises et l'ai renommé 
+pre-commit et ajouté les lignes suivantes dans mon code : 
 
-# Utilise PHP CS Fixer pour corriger automatiquement les erreurs
-php-cs-fixer fix
+# Run PHP CS Fixer pour réparer les erreurs
+./vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix ./lib
 
-# Ajoute les modifications corrigées au staging area
-git add .
-
-# Utilise PHP Mess Detector pour vérifier s'il y a des erreurs
-phpmd path/to/your/code text
-
-# Vérifie s'il y a des erreurs après correction
+# Run PHP Mess Detector pour vérifier les erreurs
+./vendor/bin/phpmd ./lib ansi codesize,unusedcode,naming
 if [ $? -ne 0 ]; then
-    echo "Des erreurs ont été détectées. Commit annulé."
-    exit 1
+  echo "PHP Mess Detector found errors. Please fix them before committing."
+  exit 1
 fi
 
-# Si tout est bon, le commit peut se poursuivre
-exit 0
-
 Continuant, chmod +x .git/hooks/pre-commit a été executé pour rendre le fichier executable.
-Puis j'ai ajouter cette ligne pour supprimer les whitespaces dans mon rapport
-sed -i 's/[[:space:]]*$//' Rapport_Koler_Maxime.txt
+Puis j'ai enlver la ligne qui revois des erreurs quand on a des whitespaces dans un fichier.
+Une fois tous les problèmes réglés, j'ai ouvert le fichier Configuration.php et ai supprimé un ;
+Pour tester ce qui ce passait lors d'une erreur non réparable;
+Unexpected token: }, line: 154, col: 13, file: C:\Users\maxko\OneDrive\Documents\BUT\git\PrivateBin\lib\Configuration.php.
+était une partie du résultat. Cela me confirme que la réparation était impossible.
+
+Pour tester une réparation possible j'ai du chercher une erreur réparable et apparament
+mettre un espace devant un use est une erreur. Après avoir mis un espace devant le 
+use Exception; de Configuration.php et avoir fait un commit, je suis revenus sur le fichier
+et l'espace n'était plus là.
+
+
+
+Transparent 3:
+Pour installer action lint sur github j'ai simplement clické sur le lien donnée, puis copier le code de Php codeSniffer.
+Ayant copié le code je suis aller dans la partie Action > workflows de github avant de créer un nouveau workflow et coller le code précédement copié.
