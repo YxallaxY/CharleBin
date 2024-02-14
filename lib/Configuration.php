@@ -98,7 +98,7 @@ class Configuration
             'signature' => '',
             'apiurl'    => '',
         ),
-    )
+    );
 
     /**
      * parse configuration file and ensure default configuration values are present
