@@ -1,0 +1,89 @@
+Koler Maxime
+
+1-GIT
+
+Scéance 1 :
+Transparent 1:
+Lors de l'installation de make, j'ai rencontré des problèmes avec PHP indiquant son absence.
+La source du problème résidait dans le chemin d'accès inexistant.
+Après résolution, l'installation de make a rencontré une autre difficulté, qui a été résolue en ajoutant "extension=php_openssl.dll" dans le fichier php.ini.
+Ensuite, les commandes make install et make start ont été exécutées avec succès.
+
+Transparent 2: La nouvelle branche à été crée avec succès avec git branche Max.
+Après les manipulation demandé;
+git add -p et avoir sélectionné juste la modification de langue puis commit et ai refait la même chose avec la nouvelle option d'expirtion.
+lors du git checkout main, git me remarque que la branche créer est en avance de 2 commits par rapport à la branche actuelle.
+
+Scéance 2
+Transparent 3:
+Après le git merge Max (en étant dans la branche main).
+Conformément à la question : oui, elle est toujours là. Elle reste là et permet de consulter ce que l’on a fait dedans. Même si le merge à été fait sans explication apparente. Puisqu'en utilisant git reflog aucun merge n'apparait alors qu'elle sont mergé dans gitk
+
+
+Transparent 4: git branche change-default-expiration. Création de la nouvelle branche.
+Après avoir changer les données et fait un git switch -C main pour retourner à main les branche on été fusionnées automatiquement. M'empêchant de faire la suite des manipulations.(J'ai du supprimer quelques commit pour refaire les manipulations...).
+Après avoir refait les manipulations, et le commit j'ai reçut ceci comme message:
+CONFLICT (content): Merge conflict in lib/Configuration.php
+Automatic merge failed; fix conflicts and then commit the result
+puis j'ai mofifier le document à la main et ai continuer et fini avec git merge --continue
+
+Scéance 3
+Transparent 5: Après avoir executé la commande git checout rename-to-charlebin j'ai peu accèder à l'ancienne branche.
+un fois à cette emplacement j'ai commancé bisect : git bisect start
+ait indiqué que cet emplacement était mauvait : git bisect bad
+et ai indiqué l'emplament bon avec ; git bisect good 47e14b1794d701c349e1251773243026b13f2694
+après git m'a envoyé à un commit et après avoir fait make start et recharger la page tout était bon.
+Après avoir indiqué que le commit était bon (git bisect good) il m'a proposé un autre qui était mauvait donc git bisect bad
+puis il m'a proposé un code bon et une fois indiqué, il a trouvé le commit faultif qui était le commit : 9409db7cdc3069e0f6d4b62e17d40c8c9a96f7f2
+
+Transparent 6:
+En poursuivant avec "git bisect start", "bad", "good 47e14b1794d701c349e1251773243026b13f2694", et en exécutant "bisect run make test", un autre mauvais commit a été identifié. Même si le commit semblait incorrect en raison d'un changement non lié au titre, la procédure a été répétée jusqu'à la découverte du commit fautif : 644e4a0dc5942ec54d5565c7d703bf8bf515f471.
+
+
+
+2-Git:
+
+Scéance 4
+Transparent 1:
+La création d'un répertoire Git complètement vide a été nécessaire pour éviter les problèmes avec "git pull", qui refusait de fusionner.
+Une fois le répertoire créé, "git push" a permis de transférer tout le contenu de PrivateBin vers Chalebin.
+
+Scéance 5
+Transparent 2:
+Après avoir modifié le nom sur le site Git et consulté le document local, il a été constaté que les changements effectués en remote n'avaient pas été synchronisés localement.
+L'utilisation de la commande "git pull" a été nécessaire pour récupérer les changements effectués en remote.
+
+Transparent 3:
+Je commance par créer la nouvelle branche dans laquelle on vas supprimer le footer avec la commande :
+
+git switch -C "Suppression_Footer"
+	- une fois dans cette nouvelle branche, j'ouvre bootstrap.php et supprime les lignes du footer.
+
+git push -u origin Suppression_Footer
+	- On envoie la nouvelle branche au débot git pour qu'il soit traité par d'autres personnes.
+
+Ouverture de pull request dans git
+
+Transparent 4:
+ Création des documents readme.md et CONTRIBUTING.md
+
+
+3-Linters:
+
+Scéance 6
+Transparent 1:
+L'installation de xmlwriter n'a pas été nécessaire puisqu'il a été installer basiquement avec php.
+Ensuite, puisque je suis sur windows, j'ai due écrire cette commande dan le makefile :
+.\vendor\bin\phpmd .\lib ansi codesize,unusedcode,naming
+ou
+"vendor\bin\phpmd" .\lib ansi codesize,unusedcode,naming
+Sinon la commande ne fonctionnait pas à cause des conflits avec les lecteurs de commande windows
+Par la suite, essayant d'ajouter la commande du premier lint, j'ai remarqué que la deuxième
+commande n'était pas éxectuée à cause d'une erreur lors du lancement de la première.
+J'ai donc décidé d'exécuter les commandes séparément
+
+Transparent 2:
+Pour la réalisation de ce transparent j'ai ouvert le fichier .git/hooks/pre-commit.sample
+Ensuite, après avoir ouvert le fichier, j'ai suivit les instruction mises et l'ai renommé
+pre-commit
+Continuant, chmod +x .git/hooks/pre-commit a été executé pour rendre le fichier executable.
